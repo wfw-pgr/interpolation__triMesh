@@ -3,14 +3,14 @@ program main
   implicit none
   integer, parameter            :: lun  = 50
   integer, parameter            :: cLen = 300
-  integer                       :: iL, ipt, nNodes, nElems, nPoints, nCmp
+  integer                       :: iL, nNodes, nElems, nPoints, nCmp
   character(cLen)               :: nodeFile   = "dat/nodes.dat"
   character(cLen)               :: elemFile   = "dat/elems.dat"
   character(cLen)               :: pointFile  = "dat/points.dat"
   character(cLen)               :: outFile    = "dat/results.dat"
   character(cLen)               :: cmt
   double precision, allocatable :: points(:,:), nodes(:,:)
-  integer         , allocatable :: elems(:,:), results(:)
+  integer         , allocatable :: elems(:,:), results(:,:)
   logical         , parameter   :: flag__numFrom1 = .true.
   
   ! ------------------------------------------------------ !
@@ -63,7 +63,7 @@ program main
   ! ------------------------------------------------------ !
   ! --- [4] test inside__triangle                      --- !
   ! ------------------------------------------------------ !
-  allocate( results( nPoints ) )
+  allocate( results( 2, nPoints ) )
   call interpolation__triElement( nodes, elems, points, results, nNodes, nElems, nPoints )
 
   ! ------------------------------------------------------ !
@@ -74,10 +74,8 @@ program main
   write(lun,"(a,2(i10,1x))") "# ", nPoints, 3
   write(lun,"(a,2(i10,1x))") "# ", nPoints, 3
   do iL=1, nPoints
-     write(lun,*) points(:,iL)
+     write(lun,*) points(:,iL), results(:,iL)
   enddo
   close(lun)
 
-  
-  
 end program main

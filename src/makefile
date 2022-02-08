@@ -5,8 +5,8 @@ object  = \
 
 FC = gfortran
 
-FFLAGS  = -O3
-LDFLAGS =
+FFLAGS  = -O3 -g -fcheck=all -Wall
+LDFLAGS = 
 
 
 .SUFFIXES: .o .f90
